@@ -1,23 +1,14 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
+if(Meteor.isClient){
+    // client code goes here
+    Template.todos.helpers({
+      'todo': function(){
+        return Todos.find();
+      }
+    });
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+if(Meteor.isServer){
+    // server code goes here
 }
+
+Todos = new Meteor.Collection('todosdb');

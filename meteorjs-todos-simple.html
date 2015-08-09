@@ -1,14 +1,15 @@
 <head>
-  <title>meteorjs-todos-simple</title>
+    <title>Todos</title>
 </head>
-
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  {{> todos}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<!--
+  We'll add some items to Todos collection to test this
+-->
+<template name="todos">
+  {{#each todo}}
+    <li>{{name}}</li>
+  {{/each}}
 </template>
