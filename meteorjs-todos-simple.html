@@ -10,6 +10,11 @@
 -->
 <template name="todos">
   {{#each todo}}
-    <li>{{name}}</li>
+    {{> todoItem}}
   {{/each}}
+</template>
+
+<!-- todoItem inherits whatever todos template has access to -->
+<template name="todoItem">
+  <li>{{name}}</li>
 </template>
