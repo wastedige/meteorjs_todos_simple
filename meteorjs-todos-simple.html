@@ -3,6 +3,7 @@
 </head>
 <body>
   {{> todos}}
+  {{> addTodo}}
 </body>
 
 <!--
@@ -17,4 +18,11 @@
 <!-- todoItem inherits whatever todos template has access to -->
 <template name="todoItem">
   <li>{{name}}</li>
+</template>
+
+<template name="addTodo">
+  <form>
+    Add your item:
+    <input type="text" placeholder="Type a task here..." name="todoName">
+  </form>
 </template>
