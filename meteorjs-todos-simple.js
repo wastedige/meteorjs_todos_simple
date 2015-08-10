@@ -19,12 +19,28 @@ if(Meteor.isClient){
     });
 
     Template.todoItem.events({
+      // keyup [name=todoItem] in the book, but it seems unnecessary since it's an event inside todoItem already
+      'keyup': function(event){
+        var documentId = this._id;
+        //the event itself is attached to a specific element, we only have to extract the value of event.target itself
+        var todoItem = $(event.target).val();
+        // var todoItem = $('[name=todoItem]').val();  // jQuery, another approach
+        Todos.update({_id:documentId}, {$set:{
+          name: todoItem
+        }});
+        console.log("Task changed to: " + todoItem);
+
+      },
+
       'click .delete-todo': function(event){ // click has to be mentioned first!
         event.preventDefault();
         var removeId = this._id;
-        Todos.remove({
-          _id: removeId
-        });
+        var confirm = window.confirm("Delete this task?");
+        if(confirm){
+          Todos.remove({
+            _id: removeId
+          });
+        }
       }
     })
 }
