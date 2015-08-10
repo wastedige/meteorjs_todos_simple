@@ -15,7 +15,17 @@ if(Meteor.isClient){
           completed: false,
           createdAt: new Date()
         });
-      } 
+      }
+    });
+
+    Template.todoItem.events({
+      'click .delete-todo': function(event){ // click has to be mentioned first!
+        event.preventDefault();
+        var removeId = this._id;
+        Todos.remove({
+          _id: removeId
+        });
+      }
     })
 }
 
