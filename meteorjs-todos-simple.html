@@ -4,6 +4,7 @@
 <body>
   {{> todos}}
   {{> addTodo}}
+  {{> todoCount}}
 </body>
 
 <!--
@@ -29,4 +30,8 @@
     Add your item:
     <input type="text" placeholder="Type a task here..." name="todoName">
   </form>
+</template>
+
+<template name="todoCount">
+    Total of {{totalCount}} Todos. {{activeCount}} active.
 </template>

@@ -6,6 +6,15 @@ if(Meteor.isClient){
       }
     });
 
+    Template.todoCount.helpers({
+      'totalCount': function(){
+        return Todos.find().count();
+      },
+      'activeCount': function(){
+        return Todos.find({ completed: true }).count()
+      }
+    });
+
     Template.addTodo.events({
       'submit form': function(){
         event.preventDefault(); // prevents whatever default form behavior
