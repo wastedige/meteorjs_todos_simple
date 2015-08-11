@@ -18,6 +18,16 @@ if(Meteor.isClient){
       }
     });
 
+    Template.todoItem.helpers({
+      'checked': function() {
+        if (this.completed)
+          return "checked";
+        else {
+          return "";
+        }
+      }
+    })
+
     Template.todoItem.events({
 
       // keyup [name=todoItem] in the book, but it seems unnecessary since it's an event inside todoItem already
@@ -44,6 +54,18 @@ if(Meteor.isClient){
           Todos.remove({
             _id: removeId
           });
+        }
+      },
+
+      'change [type=checkbox]': function(){
+        var documentId = this._id;
+        var isCompleted = this.completed;
+        if(isCompleted){
+            Todos.update({ _id: documentId }, {$set: { completed: false }});
+            console.log("Task marked as incomplete.");
+        } else {
+            Todos.update({ _id: documentId }, {$set: { completed: true }});
+            console.log("Task marked as complete.");
         }
       }
     })
