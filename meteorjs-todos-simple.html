@@ -2,14 +2,29 @@
     <title>Todos</title>
 </head>
 <body>
-  {{> todos}}
-  {{> addTodo}}
-  {{> todoCount}}
+  {{>main}}
 </body>
 
 <!--
   We'll add some items to Todos collection to test this
 -->
+<template name="home">
+  {{> todos}}
+  {{> addTodo}}
+  {{> todoCount}}
+</template>
+
+<template name="main">
+    <h1>Todos</h1>
+    <a href="{{pathFor route='home'}}">Home</a>
+    <!-- route name is used to assign actual href path
+    Route name is not necessary if the postfix after the address matches the template name -->
+    <hr />
+    {{>yield}}
+    <hr />
+    <p>Copyright &copy; Todos, 2014-2015.</p>
+</template>
+
 <template name="todos">
   {{#each todo}}
     {{> todoItem}}
@@ -34,4 +49,8 @@
 
 <template name="todoCount">
     Total of {{totalCount}} Todos. {{activeCount}} active.
+</template>
+
+<template name="register">
+    <h2>Register</h2>
 </template>
