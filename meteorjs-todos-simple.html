@@ -58,7 +58,9 @@
   {{> addList}}
   <ul>
     {{#each list}}
-      <li><a href="/list/{{_id}}">{{name}}</a></li>
+      <!-- because we’re using a parameter of “_id” within the route’s path,
+      we probably want the “_id” field of a document to appear in place of that parameter. -->
+      <li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
     {{/each}}
   </ul>
 </template>
