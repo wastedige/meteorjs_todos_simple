@@ -19,6 +19,7 @@
     <a href="{{pathFor route='home'}}">Home</a>
     <!-- route name is used to assign actual href path
     Route name is not necessary if the postfix after the address matches the template name -->
+    {{>lists}}
     <hr />
     {{>yield}}
     <hr />
@@ -48,7 +49,23 @@
 </template>
 
 <template name="todoCount">
-    Total of {{totalCount}} Todos. {{activeCount}} active.
+    <small>Total of {{totalCount}} Todos. {{activeCount}} active.</small>
+</template>
+
+<template name="lists">
+  <h3>Lists:</h3>
+  {{> addList}}
+  <ul>
+    {{#each list}}
+      <li>{{name}}</li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="addList">
+    <form>Create a list:
+        <input type="text" placeholder="List name here..." name="listName">
+    </form>
 </template>
 
 <template name="register">

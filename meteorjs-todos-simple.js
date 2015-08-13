@@ -15,6 +15,23 @@ if(Meteor.isClient){
       }
     });
 
+    Template.addList.events({
+      'submit form': function(){
+        event.preventDefault();
+        var listName = $('[name="listName"]').val();
+        Lists.insert({
+          name: listName
+        });
+        $('[name="listName"]').val('');
+      }
+    });
+
+    Template.lists.helpers({
+      'list': function(){
+        return Lists.find();
+      }
+    });
+
     Template.addTodo.events({
       'submit form': function(){
         event.preventDefault(); // prevents whatever default form behavior
@@ -24,6 +41,7 @@ if(Meteor.isClient){
           completed: false,
           createdAt: new Date()
         });
+        $('[name="todoName"]').val('');
       }
     });
 
@@ -85,3 +103,4 @@ if(Meteor.isServer){
 }
 
 Todos = new Meteor.Collection('todosdb');
+Lists = new Meteor.Collection('lists');
