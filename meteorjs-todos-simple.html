@@ -10,8 +10,6 @@
 -->
 <template name="home">
   {{> todos}}
-  {{> addTodo}}
-  {{> todoCount}}
 </template>
 
 <template name="main">
@@ -30,6 +28,9 @@
   {{#each todo}}
     {{> todoItem}}
   {{/each}}
+  <br/>
+  {{> addTodo}}
+  {{> todoCount}}
 </template>
 
 <!-- todoItem inherits whatever todos template has access to -->
@@ -63,7 +64,8 @@
 </template>
 
 <template name="listPage">
-    <h2>List type: {{name}}</h2>
+    <h2>List category: {{name}}</h2>
+    {{>todos}}
 </template>
 
 <template name="addList">

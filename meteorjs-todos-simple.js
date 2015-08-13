@@ -2,16 +2,16 @@ if(Meteor.isClient){
     // client code goes here
     Template.todos.helpers({
       'todo': function(){
-        return Todos.find();
+        return Todos.find({listId: this._id});
       }
     });
 
     Template.todoCount.helpers({
       'totalCount': function(){
-        return Todos.find().count();
+        return Todos.find({listId: this._id}).count();
       },
       'activeCount': function(){
-        return Todos.find({ completed: true }).count()
+        return Todos.find({ listId: this._id, completed: true }).count()
       }
     });
 
@@ -39,7 +39,8 @@ if(Meteor.isClient){
         Todos.insert({
           name: todoName,
           completed: false,
-          createdAt: new Date()
+          createdAt: new Date(),
+          listId: this._id
         });
         $('[name="todoName"]').val('');
       }
