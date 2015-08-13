@@ -57,9 +57,13 @@
   {{> addList}}
   <ul>
     {{#each list}}
-      <li>{{name}}</li>
+      <li><a href="/list/{{_id}}">{{name}}</a></li>
     {{/each}}
   </ul>
+</template>
+
+<template name="listPage">
+    <h2>List type: {{name}}</h2>
 </template>
 
 <template name="addList">
