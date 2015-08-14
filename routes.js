@@ -8,6 +8,8 @@ Router.route('/', {
     template: 'home'
 });
 
+Router.route('register');
+
 // the colon is telling Iron Router that this part of the URL is a dynamic parameter.
 Router.route('/list/:_id', {
   name: 'listPage',
