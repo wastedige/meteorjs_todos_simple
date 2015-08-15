@@ -9,6 +9,7 @@ Router.route('/', {
 });
 
 Router.route('register');
+Router.route('login');
 
 // the colon is telling Iron Router that this part of the URL is a dynamic parameter.
 Router.route('/list/:_id', {
