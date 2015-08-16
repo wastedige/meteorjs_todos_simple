@@ -2,7 +2,8 @@ if(Meteor.isClient){
     // client code goes here
     Template.todos.helpers({
       'todo': function(){
-        return Todos.find({listId: this._id});
+        return Todos.find({listId: this._id, createdBy: Meteor.userId()},
+                          {sort: {createdAt: -1}});
       }
     });
 
@@ -20,7 +21,8 @@ if(Meteor.isClient){
         event.preventDefault();
         var listName = $('[name="listName"]').val();
         Lists.insert({
-          name: listName
+          name: listName,
+          createdBy: Meteor.userId()
         }, function(error, results){
             Router.go('listPage', { _id: results });
         });
@@ -30,7 +32,7 @@ if(Meteor.isClient){
 
     Template.lists.helpers({
       'list': function(){
-        return Lists.find();
+        return Lists.find({ createdBy: Meteor.userId() }, {sort: {name: 1}});
       }
     });
 
@@ -42,6 +44,7 @@ if(Meteor.isClient){
           name: todoName,
           completed: false,
           createdAt: new Date(),
+          createdBy: Meteor.userId(),
           listId: this._id
         });
         $('[name="todoName"]').val('');

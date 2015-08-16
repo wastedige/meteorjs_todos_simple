@@ -17,7 +17,9 @@
     {{>navigation}}
     <!-- route name is used to assign actual href path
     Route name is not necessary if the postfix after the address matches the template name -->
-    {{>lists}}
+    {{#if currentUser}}
+      {{>lists}}
+    {{/if}}
     <hr />
     {{>yield}}
     <hr />
