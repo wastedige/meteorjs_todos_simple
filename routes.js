@@ -23,11 +23,14 @@ Router.route('/list/:_id', {
   },
   // hook! redirects user to login page instead of rendering the page if user's not logged in
   onBeforeAction: function(){
-        var currentUser = Meteor.userId();
-        if(currentUser){
-            this.next(); // basically means proceed
-        } else {
-            this.render("login");
-        }
-    }
+      var currentUser = Meteor.userId();
+      if(currentUser){
+          this.next(); // basically means proceed
+      } else {
+          this.render("login");
+      }
+  },
+  subscriptions: function(){
+    return Meteor.subscribe('todos');
+    // As a result, we’ll only be subscribing to data when that data is needed.
 });
