@@ -138,30 +138,37 @@ if(Meteor.isClient){
     }
 });
 
+// define a default set of rules and error messages for our validate functions
+$.validator.setDefaults({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true,
+            minlength: 6
+        }
+    },
+    messages: {
+        email: {
+            required: "You must enter an email address.",
+            email: "You've entered an invalid email address."
+        },
+        password: {
+            required: "You must enter a password.",
+            minlength: "Your password must be at least {0} characters."
+        }
+    }
+});
+
 // onRendered, onCreated, onDestroyed -- similar to Router hooks
 Template.login.onRendered(function(){
-  $('.login').validate({
-       rules: {
-           email: {
-               required: true,
-               email: true
-           },
-           password: {
-               required: true,
-               minlength: 6
-           }
-       },
-       messages: {
-           email: {
-               required: "You must enter an email address.",
-               email: "You've entered an invalid email address."
-           },
-           password: {
-               required: "You must enter a password.",
-               minlength: "Your password must be at least {0} characters."
-           }
-       }
-   });
+  $('.login').validate();
+});
+
+Template.register.onRendered(function(){
+  $('.register').validate();
 });
 
   Template.navigation.events({
