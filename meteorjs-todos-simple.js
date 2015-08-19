@@ -124,6 +124,7 @@ if(Meteor.isClient){
   Template.login.events({
     'submit form': function(event){
         event.preventDefault();
+        /*
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
         Meteor.loginWithPassword(email, password, function(error){
@@ -133,7 +134,13 @@ if(Meteor.isClient){
             Router.go("home");
         }
       });
+      */
     }
+});
+
+// onRendered, onCreated, onDestroyed -- similar to Router hooks
+Template.login.onRendered(function(){
+    $('.login').validate();
 });
 
   Template.navigation.events({
