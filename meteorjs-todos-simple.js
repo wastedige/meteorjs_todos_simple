@@ -106,35 +106,12 @@ if(Meteor.isClient){
   Template.register.events({
     'submit form': function(event){
         event.preventDefault();
-        var email = $('[name=email]').val();
-        var password = $('[name=password]').val();
-        Accounts.createUser({
-            email: email,
-            password: password
-        }, function(error) {
-            if(error){
-                console.log(error.reason); // Output error if registration fails
-            } else {
-                Router.go("home"); // Redirect user if registration succeeds
-            }
-        });
       }
   });
 
   Template.login.events({
     'submit form': function(event){
         event.preventDefault();
-        /*
-        var email = $('[name=email]').val();
-        var password = $('[name=password]').val();
-        Meteor.loginWithPassword(email, password, function(error){
-        if(error){
-            console.log(error.reason);
-        } else {
-            Router.go("home");
-        }
-      });
-      */
     }
 });
 
@@ -164,11 +141,38 @@ $.validator.setDefaults({
 
 // onRendered, onCreated, onDestroyed -- similar to Router hooks
 Template.login.onRendered(function(){
-  $('.login').validate();
+  $('.login').validate({
+    submitHandler: function(event){
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Meteor.loginWithPassword(email, password, function(error){
+      if(error){
+          console.log(error.reason);
+      } else {
+          Router.go("home");
+      }
+    });
+    }
+  });
 });
 
 Template.register.onRendered(function(){
-  $('.register').validate();
+  $('.register').validate({
+    submitHandler: function(event){
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Accounts.createUser({
+          email: email,
+          password: password
+      }, function(error) {
+          if(error){
+              console.log(error.reason); // Output error if registration fails
+          } else {
+              Router.go("home"); // Redirect user if registration succeeds
+          }
+      });
+    }
+  });
 });
 
   Template.navigation.events({
