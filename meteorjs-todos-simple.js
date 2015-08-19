@@ -141,14 +141,23 @@ $.validator.setDefaults({
 
 // onRendered, onCreated, onDestroyed -- similar to Router hooks
 Template.login.onRendered(function(){
-  $('.login').validate({
+   var validator = $('.login').validate({
     submitHandler: function(event){
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
       Meteor.loginWithPassword(email, password, function(error){
-      if(error){
-          console.log(error.reason);
-      } else {
+        if(error){
+            if(error.reason == "User not found"){
+                validator.showErrors({
+                    email: error.reason
+                });
+            }
+            if(error.reason == "Incorrect password"){
+                validator.showErrors({
+                    password: error.reason
+                });
+            }
+        } else {
           Router.go("home");
       }
     });
@@ -157,7 +166,7 @@ Template.login.onRendered(function(){
 });
 
 Template.register.onRendered(function(){
-  $('.register').validate({
+  var validator = $('.register').validate({
     submitHandler: function(event){
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
@@ -166,7 +175,11 @@ Template.register.onRendered(function(){
           password: password
       }, function(error) {
           if(error){
-              console.log(error.reason); // Output error if registration fails
+            if(error.reason == "Email already exists."){
+                validator.showErrors({
+                    email: "That email already belongs to a registered user."
+                });
+            }
           } else {
               Router.go("home"); // Redirect user if registration succeeds
           }
