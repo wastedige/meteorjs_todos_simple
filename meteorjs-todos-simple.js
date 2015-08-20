@@ -171,7 +171,13 @@ if(Meteor.isServer){
               name: listName,
               createdBy: currentUser
           }
-          Lists.insert(data);
+          // unregistered users can insert data into the “Lists” collection by
+          // calling createNewList in console, to block it:
+          if(!currentUser){
+            throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+          } else {
+            Lists.insert(data);
+          }
       }
     });
 
