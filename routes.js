@@ -33,4 +33,5 @@ Router.route('/list/:_id', {
   subscriptions: function(){
     return Meteor.subscribe('todos');
     // As a result, we’ll only be subscribing to data when that data is needed.
+  }
 });
