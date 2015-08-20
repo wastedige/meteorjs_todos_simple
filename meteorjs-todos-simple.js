@@ -24,13 +24,12 @@ if(Meteor.isClient){
       'submit form': function(){
         event.preventDefault();
         var listName = $('[name="listName"]').val();
-        Lists.insert({
-          name: listName,
-          createdBy: Meteor.userId()
-        }, function(error, results){
-            Router.go('listPage', { _id: results });
-        });
-        $('[name="listName"]').val('');
+        // The code that allows the insert, update, and remove functions
+        // to work from the isClient conditional is contained within a
+        // default package that’s known as “insecure”. Once removed:
+        // Users will no longer be able to use the insert, update, and
+        // remove functions from their web browser (including Console).
+        Meteor.call('createNewList', listName);
       }
     });
 
@@ -164,6 +163,18 @@ if(Meteor.isServer){
         var currentUser = this.userId;
         return Todos.find({ createdBy: currentUser })
     });
+
+    Meteor.methods({
+      'createNewList': function(listName){
+          var currentUser = Meteor.userId();
+          var data = {
+              name: listName,
+              createdBy: currentUser
+          }
+          Lists.insert(data);
+      }
+    });
+
 }
 
 Todos = new Meteor.Collection('todosdb');
