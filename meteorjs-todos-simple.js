@@ -29,7 +29,14 @@ if(Meteor.isClient){
         // default package that’s known as “insecure”. Once removed:
         // Users will no longer be able to use the insert, update, and
         // remove functions from their web browser (including Console).
-        Meteor.call('createNewList', listName);
+        Meteor.call('createNewList', listName, function(error, results){
+            if(error){
+                console.log(error.reason);
+            } else {
+                Router.go('listPage', { _id: results });
+                $('[name=listName]').val('');
+            }
+        });
       }
     });
 
@@ -167,6 +174,7 @@ if(Meteor.isServer){
     Meteor.methods({
       'createNewList': function(listName){
           var currentUser = Meteor.userId();
+          check(listName, String); // makes sure a string type is used, not a bool etc
           var data = {
               name: listName,
               createdBy: currentUser
